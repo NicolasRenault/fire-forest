@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+  color: rgb(243, 233, 210);
+  background-color: rgb(10, 92, 54);
+}
+
+input {
+  max-width: 3rem;
+}
+
+#forest {
+  margin-top: 20px;
+  padding: 5px;
+  border: 3px dashed rgb(33, 34, 36);
+  width: min-content;
+  height: max-content;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#forest p {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
