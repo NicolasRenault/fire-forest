@@ -17,10 +17,10 @@ input {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
 
-#forest p {
-  width: 20px;
-  height: 20px;
-  margin: 0;
+  p {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
 }
