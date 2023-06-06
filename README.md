@@ -14,7 +14,7 @@ This project aims to explore basic concepts of algorithms such as conditions, lo
 
 Simulation of the propagation of a forest fire based on the distribution of trees.
 
-Duplicate the file `template_EN.js` and rename it to index.js.
+Duplicate the file `template_EN.js` and rename it to `index.js`.
 
 #### Exercise 1: Fill the Forest with Trees
 
