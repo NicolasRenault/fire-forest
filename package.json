@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "scss": "0.2.4",
-    "vite": "4.1.1"
+    "vite": "^4.3.9"
   },
   "devDependencies": {
     "@babel/core": "7.2.0",
