@@ -6,7 +6,7 @@
 
 ## EN
 
-A simple and fun introduction to algorithms, extracted from a course in a Professional Bachelor's Degree, based on an idea by [Matthias Lamoureux](mailto:matthias.lamoureux@extrabat.com) from "Chaos and Fractals, New Frontiers of Science" (Peitgen, Jürgens, Saupe).
+A simple and fun introduction to algorithms, extracted from a course in a Professional Bachelor's Degree, based on an idea by [Matthias Lamoureux](https://www.linkedin.com/in/letatas/) from "Chaos and Fractals, New Frontiers of Science" (Peitgen, Jürgens, Saupe).
 
 This project aims to explore basic concepts of algorithms such as conditions, loops, and arrays by simulating a forest fire that spreads in the cardinal directions each loop.
 
@@ -62,7 +62,7 @@ By analyzing the proportion of remaining trees after the fire based on the filli
 
 ## FR
 
-Simple et fun introduction à l'algorithmie extrait d'un cours de Licence professionnelle sur une idée de [Matthias Lamoureux](mailto:matthias.lamoureux@extrabat.com) d’après "Chaos and Fractals, New Frontiers of Science (Peitgen, Jürgens, Saupe).
+Simple et fun introduction à l'algorithmie extrait d'un cours de Licence professionnelle sur une idée de [Matthias Lamoureux](https://www.linkedin.com/in/letatas/) d’après "Chaos and Fractals, New Frontiers of Science (Peitgen, Jürgens, Saupe).
 
 Ce projet a pour but d'aborder des concepts simples de l'algorithmie comme les conditions, boucles et tableaux en simulant un feu de forêt qui se propage vers les points cardinaux chaques boucles.
 
