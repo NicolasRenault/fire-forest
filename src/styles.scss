@@ -1,4 +1,5 @@
 body {
+  position: relative;
   font-family: sans-serif;
   color: rgb(243, 233, 210);
   background-color: rgb(10, 92, 54);
@@ -6,6 +7,18 @@ body {
 
 input {
   max-width: 3rem;
+}
+
+footer {
+  position: relative;
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  a {
+    color: rgb(243, 233, 210);
+  }
 }
 
 #forest {
