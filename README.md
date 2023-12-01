@@ -14,7 +14,15 @@ This project aims to explore basic concepts of algorithms such as conditions, lo
 
 Simulation of the propagation of a forest fire based on the distribution of trees.
 
-Duplicate the file `template_EN.js` and rename it to `index.js`.
+Run the commands :
+
+```bash
+npm install
+npm run dev
+```
+
+Duplicate the file `template_EN.js` and rename it to `index.js` (Override it if needed).
+Don't forget to change the line in the index.html to match your file.
 
 #### Exercise 1: Fill the Forest with Trees
 
@@ -69,7 +77,16 @@ Ce projet a pour but d'aborder des concepts simples de l'algorithmie comme les c
 ### Consignes: Feux de forêt
 
 Simulation de la propagation d'un feu de forêt en fonction de la répartition des arbres.
-Dupliquer le ficher `template_FR.js` et renommer le `index.js`.
+
+Lancer les commandes :
+
+```bash
+npm install
+npm run dev
+```
+
+Dupliquer le ficher `template_FR.js` et renommer le `index.js`. (L'écraser si besoin).
+Ne pas oublier de changer la ligne dans le index.html pour correspondre à votre fichier.
 
 #### Exercice 1 : Remplir la forêt d'arbres
 
