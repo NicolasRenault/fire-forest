@@ -13,7 +13,7 @@ const ForestCell = {
   rock: "🗻",
   tree: "🌳",
   fire: "🔥",
-  burned: "⬛"
+  burned: "⬛",
 };
 
 class Forest {

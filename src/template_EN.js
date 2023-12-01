@@ -1,10 +1,11 @@
 import "./styles.scss";
 
-let inputWidth = document.getElementById("width");
-let inputHeight = document.getElementById("height");
-let inputProbability = document.getElementById("probability");
-let startButton = document.getElementById("start");
-let forestContainer = document.getElementById("forest");
+const inputWidth = document.getElementById("width");
+const inputHeight = document.getElementById("height");
+const inputProbability = document.getElementById("probability");
+const inputNumberOfFire = document.getElementById("number-of-fire");
+const startButton = document.getElementById("start");
+const forestContainer = document.getElementById("forest");
 
 startButton.addEventListener("click", start);
 
@@ -29,6 +30,7 @@ class Forest {
     this.forestTab = Array(width * height).fill(ForestCell.empty);
   }
 
+  //Display the Forest as a String. Formated like a 2D table
   getForestText() {
     let text = "";
 
@@ -43,10 +45,12 @@ class Forest {
     return text;
   }
 
+  //Log the Forest in the console
   log() {
     console.log(this.getForestText());
   }
 
+  //Display the Forest in the HTML.
   display() {
     forestContainer.innerHTML = "";
     for (let i = 0; i < this.width * this.height; i++) {
@@ -56,10 +60,19 @@ class Forest {
     }
   }
 
+  //Return the cell number in the ForestTab according to the x and y coord
   getCellNumberByCoord(x, y) {
     return x + y * this.width;
   }
 
+  //Fill the Forest with tree according to the probability
+  startXNumberOfRandomFire(number) {
+    for (let i = 0; i < number; i++) {
+      this.startRandomFire();
+    }
+  }
+
+  //Play the propagation of the fire while there is fire in the Forest
   play() {
     if (this.propagation()) {
       sleep(500).then(() => {
@@ -71,29 +84,31 @@ class Forest {
   }
 
   /**
-   * TODO
+   * Todo
    * fillByTree (fill the forest with tree according to the probability)
    * startFire (start fire at x, y)
    * startRandomFire (start random fire)
-   * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display()
+   * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
    */
 
+  //Fill the Forest with tree according to the probability
   fillByTree() {}
 
+  //Start fire at x, y
   startFire(x, y) {}
 
+  //Start random fire
   startRandomFire() {}
 
-  propagation() {
-    //TODO
-    this.display();
-  }
+  //Propagate fire to Nord, West, South, East
+  propagation() {}
 }
 
 function start() {
   const width = inputWidth.value;
   const height = inputHeight.value;
   const probability = inputProbability.value;
+  const numberOfFire = inputNumberOfFire.value;
 
   setGridTemplate(width);
   const forest = new Forest(height, width, probability);
@@ -105,21 +120,12 @@ function start() {
    */
 }
 
-/**
- * Set the css attribut grid template according to the width so the forest is displayed correctly.
- *
- * @param {int} width
- */
+//Set the grid template according to the width
 function setGridTemplate(width) {
   forestContainer.style.gridTemplateColumns = "1fr ".repeat(width);
 }
 
-/**
- * Sleep for a given time.
- *
- * @param {int} time
- * @returns
- */
+//Sleep function
 function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }

@@ -1,11 +1,11 @@
 import "./styles.scss";
 
-let inputWidth = document.getElementById("width");
-let inputHeight = document.getElementById("height");
-let inputProbability = document.getElementById("probability");
-let inputNumberOfFire = document.getElementById("number-of-fire");
-let startButton = document.getElementById("start");
-let forestContainer = document.getElementById("forest");
+const inputWidth = document.getElementById("width");
+const inputHeight = document.getElementById("height");
+const inputProbability = document.getElementById("probability");
+const inputNumberOfFire = document.getElementById("number-of-fire");
+const startButton = document.getElementById("start");
+const forestContainer = document.getElementById("forest");
 
 startButton.addEventListener("click", start);
 
@@ -14,11 +14,11 @@ const ForestCell = {
   rock: "🗻",
   tree: "🌳",
   fire: "🔥",
-  burned: "⬛"
+  burned: "⬛",
 };
 
 class Forest {
-  forest = [ForestCell];
+  forestTab = [ForestCell];
   height = 0;
   width = 0;
   probability = 0;
@@ -27,9 +27,10 @@ class Forest {
     this.height = height;
     this.width = width;
     this.probability = probability;
-    this.forest = Array(width * height).fill(ForestCell.empty);
+    this.forestTab = Array(width * height).fill(ForestCell.empty);
   }
 
+  //Display the Forest as a String. Formated like a 2D table
   getForestText() {
     let text = "";
 
@@ -38,35 +39,40 @@ class Forest {
         text += "\n";
       }
 
-      text += this.forest[i];
+      text += this.forestTab[i];
     }
 
     return text;
   }
 
+  //Log the Forest in the console
   log() {
     console.log(this.getForestText());
   }
 
+  //Display the Forest in the HTML.
   display() {
     forestContainer.innerHTML = "";
     for (let i = 0; i < this.width * this.height; i++) {
       let cell = document.createElement("p");
-      cell.innerHTML = this.forest[i];
+      cell.innerHTML = this.forestTab[i];
       forestContainer.appendChild(cell);
     }
   }
 
+  //Return the cell number in the ForestTab according to the x and y coord
   getCellNumberByCoord(x, y) {
     return x + y * this.width;
   }
 
+  //Fill the Forest with tree according to the probability
   startXNumberOfRandomFire(number) {
     for (let i = 0; i < number; i++) {
       this.startRandomFire();
     }
   }
 
+  //Play the propagation of the fire while there is fire in the Forest
   play() {
     if (this.propagation()) {
       sleep(350).then(() => {
@@ -85,31 +91,34 @@ class Forest {
    * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
    */
 
+  //Fill the Forest with tree according to the probability
   fillByTree() {
     for (let i = 0; i < this.width * this.height; i++) {
       if (this.probability >= Math.random()) {
-        this.forest[i] = ForestCell.tree;
+        this.forestTab[i] = ForestCell.tree;
       } else {
-        this.forest[i] = ForestCell.rock;
+        this.forestTab[i] = ForestCell.rock;
       }
     }
   }
 
+  //Start fire at x, y
   startFire(x, y) {
-    if (this.forest[this.getCellNumberByCoord(x, y)] === ForestCell.tree) {
-      this.forest[this.getCellNumberByCoord(x, y)] = ForestCell.fire;
+    if (this.forestTab[this.getCellNumberByCoord(x, y)] === ForestCell.tree) {
+      this.forestTab[this.getCellNumberByCoord(x, y)] = ForestCell.fire;
     }
   }
 
+  //Start random fire
   startRandomFire() {
-    if (this.forest.includes(ForestCell.tree)) {
+    if (this.forestTab.includes(ForestCell.tree)) {
       let bool = true;
 
       while (bool) {
         let random = Math.floor(Math.random() * (this.width * this.height));
 
-        if (this.forest[random] === ForestCell.tree) {
-          this.forest[random] = ForestCell.fire;
+        if (this.forestTab[random] === ForestCell.tree) {
+          this.forestTab[random] = ForestCell.fire;
           bool = false;
         }
       }
@@ -118,13 +127,14 @@ class Forest {
     return undefined;
   }
 
+  //Propagate fire to Nord, West, South, East
   propagation() {
-    if (this.forest.includes(ForestCell.fire)) {
+    if (this.forestTab.includes(ForestCell.fire)) {
       let fireTab = "";
       for (let i = 0; i < this.width; i++) {
         for (let j = 0; j < this.height; j++) {
           if (
-            this.forest[this.getCellNumberByCoord(i, j)] === ForestCell.fire
+            this.forestTab[this.getCellNumberByCoord(i, j)] === ForestCell.fire
           ) {
             fireTab += [i + "," + j + "|"];
           }
@@ -156,7 +166,7 @@ class Forest {
           this.startFire(x - 1, y);
         }
 
-        this.forest[this.getCellNumberByCoord(x, y)] = ForestCell.burned;
+        this.forestTab[this.getCellNumberByCoord(x, y)] = ForestCell.burned;
       });
       this.display();
       return true;
@@ -168,10 +178,10 @@ class Forest {
 }
 
 function start() {
-  let width = inputWidth.value;
-  let height = inputHeight.value;
-  let probability = inputProbability.value;
-  let numberOfFire = inputNumberOfFire.value;
+  const width = inputWidth.value;
+  const height = inputHeight.value;
+  const probability = inputProbability.value;
+  const numberOfFire = inputNumberOfFire.value;
 
   setGridTemplate(width);
   let forest = new Forest(height, width, probability);
@@ -181,10 +191,12 @@ function start() {
   forest.play();
 }
 
+//Set the grid template according to the width
 function setGridTemplate(width) {
   forestContainer.style.gridTemplateColumns = "1fr ".repeat(width);
 }
 
+//Sleep function
 function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
