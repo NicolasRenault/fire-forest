@@ -65,13 +65,6 @@ class Forest {
     return x + y * this.width;
   }
 
-  //Fill the Forest with tree according to the probability
-  startXNumberOfRandomFire(number) {
-    for (let i = 0; i < number; i++) {
-      this.startRandomFire();
-    }
-  }
-
   //Play the propagation of the fire while there is fire in the Forest
   play() {
     if (this.propagation()) {
@@ -99,6 +92,9 @@ class Forest {
 
   //Start random fire
   startRandomFire() {}
+
+  //Call x times the startRandomFire() function
+  startXRandomFire(x) {}
 
   //Propagate fire to Nord, West, South, East
   propagation() {}

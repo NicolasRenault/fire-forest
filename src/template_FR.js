@@ -65,13 +65,6 @@ class Forest {
     return x + y * this.width;
   }
 
-  //Rempli la forêt d'arbre en fonction de la probabilité
-  startXNumberOfRandomFire(number) {
-    for (let i = 0; i < number; i++) {
-      this.startRandomFire();
-    }
-  }
-
   //Joue la propagation du feu tant qu'il y a du feu dans la forêt
   play() {
     if (this.propagation()) {
@@ -99,6 +92,9 @@ class Forest {
 
   //Démarre un feu aléatoire
   startRandomFire() {}
+
+  //Appel x fois la méthode startRandomFire()
+  startXRandomFire(x) {}
 
   //Propage le feu au Nord, Ouest, Sud, Est
   propagation() {}
