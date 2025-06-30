@@ -1,10 +1,11 @@
 import "./styles.scss";
 
-let inputWidth = document.getElementById("width");
-let inputHeight = document.getElementById("height");
-let inputProbability = document.getElementById("probability");
-let startButton = document.getElementById("start");
-let forestContainer = document.getElementById("forest");
+const inputWidth = document.getElementById("width");
+const inputHeight = document.getElementById("height");
+const inputProbability = document.getElementById("probability");
+const inputNumberOfFire = document.getElementById("number-of-fire");
+const startButton = document.getElementById("start");
+const forestContainer = document.getElementById("forest");
 
 startButton.addEventListener("click", start);
 
@@ -29,6 +30,7 @@ class Forest {
     this.forestTab = Array(width * height).fill(ForestCell.empty);
   }
 
+  //Display the Forest as a String. Formated like a 2D table
   getForestText() {
     let text = "";
 
@@ -43,10 +45,12 @@ class Forest {
     return text;
   }
 
+  //Log the Forest in the console
   log() {
     console.log(this.getForestText());
   }
 
+  //Display the Forest in the HTML.
   display() {
     forestContainer.innerHTML = "";
     for (let i = 0; i < this.width * this.height; i++) {
@@ -56,13 +60,18 @@ class Forest {
     }
   }
 
+  //Return the cell number in the ForestTab according to the x and y coord
   getCellNumberByCoord(x, y) {
     return x + y * this.width;
   }
 
+  //Start the propagation of the fire forest until there is no more. Display the forest each tick.
   play() {
-    if (this.propagation()) {
-      sleep(500).then(() => {
+    const canPropagate = this.propagate();
+    this.display();
+
+    if (canPropagate) {
+      sleep(750).then(() => {
         this.play();
       });
     } else {
@@ -72,142 +81,50 @@ class Forest {
 
   /**
    * Todo
-   * fillByTree (fill the forest with tree according to the probability)
+   * fillForest (fill the forest with tree according to the probability)
    * startFire (start fire at x, y)
    * startRandomFire (start random fire)
-   * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
+   * propagate (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
    */
 
-  fillByTree() {
-    for (let i = 0; i < this.width * this.height; i++) {
-      if (this.probability >= Math.random()) {
-        this.forestTab[i] = ForestCell.tree;
-      } else {
-        this.forestTab[i] = ForestCell.rock;
-      }
-    }
-  }
+  //Fill the Forest with tree and rocks according to the probability
+  fillForest() {}
 
-  startFire(x, y) {
-    if (this.forestTab[this.getCellNumberByCoord(x, y)] === ForestCell.tree) {
-      this.forestTab[this.getCellNumberByCoord(x, y)] = ForestCell.fire;
-    }
-  }
+  //Start fire at x, y
+  startFire(x, y) {}
 
-  startRandomFire() {
-    if (this.forestTab.includes(ForestCell.tree)) {
-      let allume = false;
+  //Start random fire
+  startRandomFire() {}
 
-      while (!allume) {
-        let random = Math.floor(Math.random() * (this.width * this.height));
+  //Call x times the startRandomFire() function
+  startXRandomFire(x) {}
 
-        if (this.forestTab[random] === ForestCell.tree) {
-          this.forestTab[random] = ForestCell.fire;
-          allume = true;
-        }
-      }
-    }
-  }
-
-  propagation() {
-    if (this.forestTab.includes(ForestCell.fire)) {
-      let fireTab = "";
-      for (let i = 0; i < this.height; i++) {
-        //y
-        for (let j = 0; j < this.width; j++) {
-          //x
-          if (
-            this.forestTab[this.getCellNumberByCoord(j, i)] === ForestCell.fire
-          ) {
-            fireTab += [j + "," + i + "|"];
-          }
-        }
-      }
-
-      fireTab = fireTab.split("|");
-      fireTab.pop();
-
-      fireTab.forEach((coord) => {
-        let xy = coord.split(",");
-        let x = Number(xy[0]);
-        let y = Number(xy[1]);
-
-        //Nord
-        if (y > 0) {
-          this.startFire(x, y - 1);
-        }
-
-        //Sud
-        if (y < this.height - 1) {
-          this.startFire(x, y + 1);
-        }
-
-        //Ouest
-        if (x > 0) {
-          this.startFire(x - 1, y);
-        }
-        //Est
-        if (x < this.width - 1) {
-          this.startFire(x + 1, y);
-        }
-
-        this.forestTab[this.getCellNumberByCoord(x, y)] = ForestCell.burned;
-      });
-      this.display();
-      return true;
-    } else {
-      this.display();
-      return false;
-    }
-  }
+  //Propagate fire to Nord, West, South, East
+  propagate() {}
 }
 
 function start() {
-  let width = inputWidth.value;
-  let height = inputHeight.value;
-  let probability = inputProbability.value;
+  const width = inputWidth.value;
+  const height = inputHeight.value;
+  const probability = inputProbability.value;
+  const numberOfFire = inputNumberOfFire.value;
 
   setGridTemplate(width);
-  //---------------
-  let forest = new Forest(height, width, probability);
-  forest.fillByTree();
-  forest.log();
-  forest.startRandomFire();
-  forest.startRandomFire();
-  forest.startRandomFire();
-  forest.play();
+  const forest = new Forest(height, width, probability);
+  /**
+   * TODO
+   * Create a forest.
+   * Start two fires.
+   * Animate the fire propagation using the play() method.
+   */
 }
 
+//Set the grid template according to the width
 function setGridTemplate(width) {
   forestContainer.style.gridTemplateColumns = "1fr ".repeat(width);
 }
 
+//Sleep function
 function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
-
-//: ## Exercice 2 : Écrire la classe `Forest`
-//: La forêt contient un tableau de `ForestCell` et l'initialiseur prend sa largeur et sa hauteur en paramètres.
-//: * Note: Voir l'initialiseur `init(repeating:count:)`de `Array`.
-
-//: ## Exercice 3 : Écrire un `subscript` pour accéder aux cellules de la forêt.
-//: On doit pouvoir accéder aux cellules par leurs coordonnées x,y plutôt que par leur index dans le tableau.
-//: ## Exercice 4 : Afficher la forêt
-//: Conformer le type `Forest` au protocole `CustomStringConvertible` pour pouvoir afficher la forêt.
-//: ## Exercice 5 : Remplir la forêt d'arbres
-//: Écrire la méthode `fill(with cell: ForestCell, probability: Double = 0.6)` qui remplit la forêt avec la cellule passée en paramètre avec la probabilité donnée.
-//: * Note: Voir la méthode `random(in:)` de `Double` pour gérer la probabilité.
-//: ## Exercice 6 : Allumer le feu...
-//: Écrire la méthode `startFire(x: Int, y:Int)` qui met le feu à la case x,y uniquement si c'est un arbre.
-//: ## Exercice 7 : Pyromane !
-//: Écrire la méthode `startRandomFire()` qui met le feu à une case d'arbre au hasard.
-//: * Note: S'il n'y a plus d'arbre cette méthode ne fait rien.
-//: ## Exercice 8 : Propagation de l'incendie...
-//: Écrire la méthode `propagation()` qui va propager le feu suivant les règles suivantes :
-//: * Un arbre en feu met le feu à ses voisins 4-connexes (Nord, Est, Sud et Ouest)
-//: * Un arbre en feu devient un arbre brûlé
-//: * la méthode renvoie `false` s'il ne reste plus d'arbre en feu, `true` sinon.
-//: ## Exercice 9 : Animer un incendie
-//: * Créer une forêt
-//: * Démarrez deux feux
-//: * Animez la propagation du feu

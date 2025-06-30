@@ -72,10 +72,13 @@ class Forest {
     }
   }
 
-  //Play the propagation of the fire while there is fire in the Forest
+  //Start the propagation of the fire forest until there is no more. Display the forest each tick.
   play() {
-    if (this.propagation()) {
-      sleep(350).then(() => {
+    const canPropagate = this.propagate();
+    this.display();
+
+    if (canPropagate) {
+      sleep(750).then(() => {
         this.play();
       });
     } else {
@@ -85,14 +88,14 @@ class Forest {
 
   /**
    * Todo
-   * fillByTree (fill the forest with tree according to the probability)
+   * fillForest (fill the forest with tree according to the probability)
    * startFire (start fire at x, y)
    * startRandomFire (start random fire)
-   * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
+   * propagate (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
    */
 
-  //Fill the Forest with tree according to the probability
-  fillByTree() {
+  //Fill the Forest with tree and rocks according to the probability
+  fillForest() {
     for (let i = 0; i < this.width * this.height; i++) {
       if (this.probability >= Math.random()) {
         this.forestTab[i] = ForestCell.tree;
@@ -109,69 +112,65 @@ class Forest {
     }
   }
 
-  //Start random fire
+  //Call x times the startRandomFire() function
   startRandomFire() {
     if (this.forestTab.includes(ForestCell.tree)) {
-      let bool = true;
+      let allume = false;
 
-      while (bool) {
+      while (!allume) {
         let random = Math.floor(Math.random() * (this.width * this.height));
 
         if (this.forestTab[random] === ForestCell.tree) {
           this.forestTab[random] = ForestCell.fire;
-          bool = false;
+          allume = true;
         }
       }
     }
-
-    return undefined;
   }
 
   //Propagate fire to Nord, West, South, East
-  propagation() {
+  propagate() {
     if (this.forestTab.includes(ForestCell.fire)) {
-      let fireTab = "";
-      for (let i = 0; i < this.width; i++) {
-        for (let j = 0; j < this.height; j++) {
+      let fireArray = [];
+      for (let i = 0; i < this.height; i++) {
+        //y
+        for (let j = 0; j < this.width; j++) {
+          //x
           if (
-            this.forestTab[this.getCellNumberByCoord(i, j)] === ForestCell.fire
+            this.forestTab[this.getCellNumberByCoord(j, i)] === ForestCell.fire
           ) {
-            fireTab += [i + "," + j + "|"];
+            fireArray.push(j, i);
           }
         }
       }
 
-      fireTab = fireTab.split("|");
-      fireTab.pop();
+      for (let i = 0; i < fireArray.length; i = i + 2) {
+        let x = fireArray[i];
+        let y = fireArray[i + 1];
 
-      fireTab.forEach((coord) => {
-        let xy = coord.split(",");
-        let x = Number(xy[0]);
-        let y = Number(xy[1]);
-
-        if (y !== 0) {
-          //north
+        //North
+        if (y > 0) {
           this.startFire(x, y - 1);
         }
-        if (x !== this.width - 1) {
-          //east
-          this.startFire(x + 1, y);
-        }
-        if (y !== this.height - 1) {
-          //south
+
+        //South
+        if (y < this.height - 1) {
           this.startFire(x, y + 1);
         }
-        if (x !== 0) {
-          //west
+
+        //West
+        if (x > 0) {
           this.startFire(x - 1, y);
+        }
+        //East
+        if (x < this.width - 1) {
+          this.startFire(x + 1, y);
         }
 
         this.forestTab[this.getCellNumberByCoord(x, y)] = ForestCell.burned;
-      });
-      this.display();
+      }
       return true;
     } else {
-      this.display();
       return false;
     }
   }
@@ -185,7 +184,7 @@ function start() {
 
   setGridTemplate(width);
   let forest = new Forest(height, width, probability);
-  forest.fillByTree();
+  forest.fillForest();
   forest.startXNumberOfRandomFire(numberOfFire);
   forest.display();
   forest.play();

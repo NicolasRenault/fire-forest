@@ -24,9 +24,9 @@ npm run dev
 Duplicate the file `template_EN.js` and rename it to `index.js` (Override it if needed).
 Don't forget to change the line in the index.html to match your file.
 
-#### Exercise 1: Fill the Forest with Trees
+#### Exercise 1: Fill the Forest with Trees and Rocks
 
-Write the `fill()` method that fills the forest with trees according to the given probability.
+Write the `fillForest()` method that fills the forest with trees `(ForestCell.tree)` or rocks `(ForestCell.rock)` according to the given probability `this.probability`.
 
 - Note: See the `Math.random()` method for managing the probability.
 
@@ -42,7 +42,7 @@ Write the `startRandomFire()` method that randomly ignites a fire at a tree loca
 
 #### Exercise 4: Fire Propagation...
 
-Write the `propagation()` method that propagates the fire according to the following rules:
+Write the `propagate()` method that propagates the fire according to the following rules:
 
 - A burning tree sets its 4-connected neighbors (North, East, South, and West) on fire.
 - A burning tree becomes a burnt tree.
@@ -51,7 +51,7 @@ Write the `propagation()` method that propagates the fire according to the follo
 #### Exercise 5: Animate a Fire
 
 - Create a forest.
-- Start two fires.
+- Start two fires. _Use the value_ `numberOfFire`
 - Animate the fire propagation using the `play()` method.
 
 #### And now?...
@@ -88,9 +88,9 @@ npm run dev
 Dupliquer le ficher `template_FR.js` et renommer le `index.js`. (L'écraser si besoin).
 Ne pas oublier de changer la ligne dans le index.html pour correspondre à votre fichier.
 
-#### Exercice 1 : Remplir la forêt d'arbres
+#### Exercice 1 : Remplir la forêt d'arbres et de rochers
 
-Écrire la méthode `fill()` qui remplit la forêt avec des arbres avec la probabilité donnée.
+Écrire la méthode `fillForest()` qui remplit la forêt avec des arbres `(ForestCell.tree)` ou des rochers `(ForestCell.rock)` en fonction de la probabilité `this.probability`.
 
 - Note: Voir la méthode `Math.random()` pour gérer la probabilité.
 
@@ -106,7 +106,7 @@ Ne pas oublier de changer la ligne dans le index.html pour correspondre à votre
 
 #### Exercice 4 : Propagation de l'incendie...
 
-Écrire la méthode `propagation()` qui va propager le feu suivant les règles suivantes :
+Écrire la méthode `propagate()` qui va propager le feu suivant les règles suivantes :
 
 - Un arbre en feu met le feu à ses voisins 4-connexes (Nord, Est, Sud et Ouest)
 - Un arbre en feu devient un arbre brûlé
@@ -115,8 +115,8 @@ Ne pas oublier de changer la ligne dans le index.html pour correspondre à votre
 #### Exercice 5 : Animer un incendie
 
 - Créer une forêt
-- Démarrez deux feux
-- Animez la propagation du feu via la méthode `play()`
+- Démarrer deux feux. _Utiliser la valeur_ `numberOfFire`
+- Animer la propagation du feu via la méthode `play()`
 
 #### Et maintenant ?...
 

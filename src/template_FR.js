@@ -67,8 +67,11 @@ class Forest {
 
   //Joue la propagation du feu tant qu'il y a du feu dans la forêt
   play() {
-    if (this.propagation()) {
-      sleep(500).then(() => {
+    const canPropagate = this.propagate();
+    this.display();
+
+    if (canPropagate) {
+      sleep(750).then(() => {
         this.play();
       });
     } else {
@@ -78,14 +81,14 @@ class Forest {
 
   /**
    * TODO
-   * fillByTree (remplir la forêt de tree selon la probabilité)
+   * fillForest (remplir la forêt de tree selon la probabilité)
    * startFire (allume un feu à la position x, y)
    * startRandomFire (allume un feu à une position aléatoire)
-   * propagation (propage le feu au Nord, Ouest, Sud, Est) (retourne vrais si le feu s'est propagé, sinon retourne faux) + display()
+   * propagate (propage le feu au Nord, Ouest, Sud, Est) (retourne vrais si le feu s'est propagé, sinon retourne faux) + display()
    */
 
-  //Rempli la forêt d'arbre en fonction de la probabilité
-  fillByTree() {}
+  //Rempli la forêt d'arbre et de rochers en fonction de la probabilité
+  fillForest() {}
 
   //Démarre un feu à la coordonnée x, y
   startFire(x, y) {}
@@ -97,7 +100,7 @@ class Forest {
   startXRandomFire(x) {}
 
   //Propage le feu au Nord, Ouest, Sud, Est
-  propagation() {}
+  propagate() {}
 }
 
 function start() {

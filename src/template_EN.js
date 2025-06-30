@@ -65,10 +65,13 @@ class Forest {
     return x + y * this.width;
   }
 
-  //Play the propagation of the fire while there is fire in the Forest
+  //Start the propagation of the fire forest until there is no more. Display the forest each tick.
   play() {
-    if (this.propagation()) {
-      sleep(500).then(() => {
+    const canPropagate = this.propagate();
+    this.display();
+
+    if (canPropagate) {
+      sleep(750).then(() => {
         this.play();
       });
     } else {
@@ -78,14 +81,14 @@ class Forest {
 
   /**
    * Todo
-   * fillByTree (fill the forest with tree according to the probability)
+   * fillForest (fill the forest with tree according to the probability)
    * startFire (start fire at x, y)
    * startRandomFire (start random fire)
-   * propagation (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
+   * propagate (propagate fire to Nord, West, South, East) (return true if fire propagate else false) + display
    */
 
-  //Fill the Forest with tree according to the probability
-  fillByTree() {}
+  //Fill the Forest with tree and rocks according to the probability
+  fillForest() {}
 
   //Start fire at x, y
   startFire(x, y) {}
@@ -97,7 +100,7 @@ class Forest {
   startXRandomFire(x) {}
 
   //Propagate fire to Nord, West, South, East
-  propagation() {}
+  propagate() {}
 }
 
 function start() {
